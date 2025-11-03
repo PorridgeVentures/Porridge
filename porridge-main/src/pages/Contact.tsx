@@ -23,12 +23,15 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Do nothing if already submitting
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     setSubmitError('');
 
-    // 1. Construct URLSearchParams object
+    // 1. Construct URLSearchParams object (not strictly needed for the DOM method, but good for preparation)
     const params = new URLSearchParams();
     params.append(FORM_ENTRY_IDS.name, formData.name);
     params.append(FORM_ENTRY_IDS.email, formData.email);
@@ -36,30 +39,59 @@ export default function Contact() {
     params.append(FORM_ENTRY_IDS.message, formData.message);
 
     try {
-      // 2. Send the request (Google Form endpoint expects POST request)
-      const response = await fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Important for cross-domain Google Forms submission
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: params.toString(),
+      // 2. Create a temporary hidden iframe
+      const iframe = document.createElement('iframe');
+      // Use a unique name for the target
+      iframe.name = 'google-form-target-' + Date.now(); 
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // 3. Create a temporary form element to submit the data
+      const tempForm = document.createElement('form');
+      tempForm.action = GOOGLE_FORM_URL;
+      tempForm.method = 'POST';
+      tempForm.target = iframe.name; // Crucial: submit form to the hidden iframe
+      tempForm.style.display = 'none';
+      
+      // Convert URLSearchParams into hidden input elements for the form submission
+      params.forEach((value, key) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        tempForm.appendChild(input);
       });
 
-      // Since we use 'no-cors', we can't check response.ok, 
-      // but a successful fetch usually means the request was sent.
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', company: '', message: '' }); // Clear form
+      // 4. Set the load listener on the iframe. 
+      // This fires when the Google Form server responds (after successful submission and redirect).
+      const handleLoad = () => {
+        // Successful submission logic
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', company: '', message: '' }); // Clear form
+        
+        // Clean up the temporary elements
+        iframe.removeEventListener('load', handleLoad);
+        document.body.removeChild(iframe);
+        document.body.removeChild(tempForm);
+        
+        // Reset submission status after a delay
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 3000);
 
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 3000);
+        setIsSubmitting(false);
+      };
+      
+      iframe.addEventListener('load', handleLoad);
+      
+      // 5. Append and Submit the temporary form
+      document.body.appendChild(tempForm);
+      tempForm.submit();
 
     } catch (error) {
       console.error('Submission Error:', error);
-      setSubmitError("There was an error sending your message. Please try again or email us directly.");
-    } finally {
       setIsSubmitting(false);
+      setSubmitError("There was an error sending your message. Please try again or email us directly.");
     }
   };
 
@@ -190,7 +222,13 @@ export default function Contact() {
                 }`}
               >
                 {isSubmitting ? (
-                  <span>Submitting...</span> // Show loading state
+                  <span className="flex items-center space-x-2">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Submitting...</span>
+                  </span>
                 ) : (
                   <>
                     <span>Send message</span>
