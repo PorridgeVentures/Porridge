@@ -41,7 +41,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
             className="text-2xl font-semibold tracking-tight hover:text-accent transition-colors"
           >
             {/* Porridge Ventures */}
-            <img href="/Porridge Logo recreated-03.png" alt="Porridge Ventures"></img>
+            <img src="/Porridge Logo recreated-03.png" alt="Porridge Ventures"/>
           </button>
 
           <div className="hidden md:flex items-center space-x-8">
