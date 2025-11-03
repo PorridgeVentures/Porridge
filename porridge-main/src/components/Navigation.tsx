@@ -40,7 +40,8 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
             onClick={() => onNavigate('home')}
             className="text-2xl font-semibold tracking-tight hover:text-accent transition-colors"
           >
-            Porridge Ventures
+            {/* Porridge Ventures */}
+            <img href="/Porridge Logo recreated-03.png" alt="Porridge Ventures"></img>
           </button>
 
           <div className="hidden md:flex items-center space-x-8">
