@@ -36,7 +36,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center py-6">
+        <div className="flex justify-between items-center py-2">
           
           {/* LOGO - Cleaned up class name for consistent sizing */}
           <button
