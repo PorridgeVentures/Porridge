@@ -6,13 +6,13 @@ export default function Team() {
       name: 'Geetanjali Bhattacharji',
       role: 'Co-Founder',
       bio: 'CMO Whisperer, Big 4 Consulting Leader, Marketing ROI expert, Transformation Evangelist, with 30+ years of experience',
-      image: 'https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/afaqs/media/post_attachments/cb201eb203cf0bb16bdf8a5b80d86edb5a4252d48a209d4adf65961671938108.jpg',
+      image: '/GEE-01 2.png',
     },
     {
       name: 'Anil Nair',
       role: 'Co-Founder ',
       bio: 'Over 25 years of experience in brand strategy, digital marketing, organizational development, technology, and innovation.',
-      image: 'https://postimg.cc/SjwXDHyd',
+      image: '/ANIL.png',
     },];
 
   return (
