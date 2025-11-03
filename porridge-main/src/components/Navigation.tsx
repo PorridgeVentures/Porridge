@@ -48,7 +48,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
               src="/porridge-logo.png" 
               alt="Porridge Ventures"
               // CLEANED: Consistent size constraints for mobile (h-8) and desktop (h-12)
-              className="h-8 lg:h-12 w-auto" 
+              className="h-10 lg:h-12 w-auto" 
             />
           </button>
 
