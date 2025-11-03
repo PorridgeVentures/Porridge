@@ -47,7 +47,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
               src="/porridge-logo.png" 
               alt="Porridge Ventures"
               // ADDED: Tailwind classes to constrain the image size
-              className="h-8 w-auto" 
+              className="h8 lg:h-12  w-auto" 
             />
           </button>
 
