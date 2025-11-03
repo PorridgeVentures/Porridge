@@ -25,27 +25,27 @@ export default function Footer() {
           <div>
             <h4 className="font-medium mb-4">Follow</h4>
             <div className="flex space-x-4">
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-600 hover:text-accent transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter size={20} />
-              </a>
+              </a> */}
               <a
-                href="#"
+                href="https://www.linkedin.com/company/glassboxco/"
                 className="text-gray-600 hover:text-accent transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-600 hover:text-accent transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
