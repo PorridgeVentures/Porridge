@@ -38,16 +38,17 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           
-          {/* LOGO - Now includes size constraints (h-8 w-auto) */}
+          {/* LOGO - Cleaned up class name for consistent sizing */}
           <button
             onClick={() => onNavigate('home')}
-            className="text-2xl font-semibold tracking-tight hover:text-accent transition-colors"
+            // Removed unnecessary text/font classes from the button as the image handles styling
+            className="hover:opacity-80 transition-opacity" 
           >
             <img 
               src="/porridge-logo.png" 
               alt="Porridge Ventures"
-              // ADDED: Tailwind classes to constrain the image size
-              className="h8 lg:h-12  w-auto" 
+              // CLEANED: Consistent size constraints for mobile (h-8) and desktop (h-12)
+              className="h-8 lg:h-12 w-auto" 
             />
           </button>
 
