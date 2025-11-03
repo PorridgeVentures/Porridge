@@ -38,7 +38,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
         <div className="flex justify-between items-center py-6">
           <button
             onClick={() => onNavigate('home')}
-            className="text-2xl font-semibold tracking-tight hover:text-accent transition-colors"
+            className="text-md font-semibold tracking-tight hover:text-accent transition-colors"
           >
             {/* Porridge Ventures */}
             <img src="/porridge-logo.png" alt="Porridge Ventures"/>
