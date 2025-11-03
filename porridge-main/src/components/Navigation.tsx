@@ -12,6 +12,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
 
   useEffect(() => {
     const handleScroll = () => {
+      // Sets isScrolled to true when the page is scrolled more than 20 pixels
       setIsScrolled(window.scrollY > 20);
     };
 
@@ -36,14 +37,21 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
+          
+          {/* LOGO - Now includes size constraints (h-8 w-auto) */}
           <button
             onClick={() => onNavigate('home')}
-            className="text-md font-semibold tracking-tight hover:text-accent transition-colors"
+            className="text-2xl font-semibold tracking-tight hover:text-accent transition-colors"
           >
-            {/* Porridge Ventures */}
-            <img src="/porridge-logo.png" alt="Porridge Ventures"/>
+            <img 
+              src="/porridge-logo.png" 
+              alt="Porridge Ventures"
+              // ADDED: Tailwind classes to constrain the image size
+              className="h-8 w-auto" 
+            />
           </button>
 
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
@@ -58,6 +66,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
             ))}
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2"
@@ -67,6 +76,7 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
         </div>
       </div>
 
+      {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100">
           <div className="px-6 py-4 space-y-4">
