@@ -40,7 +40,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 lg:px-8 flex-col items-center">
+      <section className="max-w-5xl mx-auto px-6 lg:px-8 flex-col justify-between">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-4">
