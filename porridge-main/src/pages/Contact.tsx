@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import { Send, Mail, MapPin } from 'lucide-react';
 
+// IMPORTANT: Replace this with the actual URL from your Google Form Embed code (action attribute of the form)
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdOUoqYcSH-TzFTnVeRlOXbxZb0o1L1t1mU_Sa5RfpN_KfPCw/formResponse" 
+
+// IMPORTANT: Replace these with the actual Entry IDs from your Google Form (see instructions)
+const FORM_ENTRY_IDS = {
+  name: "entry.819810553", // <--- CHANGE THIS
+  email: "entry.523648762", // <--- CHANGE THIS
+  company: "entry.1645462390", // <--- CHANGE THIS
+  message: "entry.409691794", // <--- CHANGE THIS
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -9,14 +20,47 @@ export default function Contact() {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', company: '', message: '' });
-    }, 3000);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    // 1. Construct URLSearchParams object
+    const params = new URLSearchParams();
+    params.append(FORM_ENTRY_IDS.name, formData.name);
+    params.append(FORM_ENTRY_IDS.email, formData.email);
+    params.append(FORM_ENTRY_IDS.company, formData.company);
+    params.append(FORM_ENTRY_IDS.message, formData.message);
+
+    try {
+      // 2. Send the request (Google Form endpoint expects POST request)
+      const response = await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Important for cross-domain Google Forms submission
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params.toString(),
+      });
+
+      // Since we use 'no-cors', we can't check response.ok, 
+      // but a successful fetch usually means the request was sent.
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', company: '', message: '' }); // Clear form
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+
+    } catch (error) {
+      console.error('Submission Error:', error);
+      setSubmitError("There was an error sending your message. Please try again or email us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,13 +100,6 @@ export default function Contact() {
             <h3 className="font-semibold mb-2">Location</h3>
             <p className="text-gray-600">Mumbai, India</p>
           </div>
-          {/* <div className="text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-4">
-              <Send size={24} className="text-accent" />
-            </div>
-            <h3 className="font-semibold mb-2">Number</h3>
-            <p className="text-gray-600">XXXXXXXX</p>
-          </div> */}
         </div>
 
         <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-12 shadow-sm">
@@ -139,12 +176,27 @@ export default function Contact() {
                   placeholder="Tell us about your project and what you're looking for..."
                 />
               </div>
+              
+              {/* Submission Error Display */}
+              {submitError && (
+                <p className="text-red-500 mb-4 text-center">{submitError}</p>
+              )}
+              
               <button
                 type="submit"
-                className="w-full md:w-auto px-8 py-4 bg-black text-white rounded-full font-medium hover:bg-accent transition-colors inline-flex items-center justify-center space-x-2 group"
+                disabled={isSubmitting} // Disable button while submitting
+                className={`w-full md:w-auto px-8 py-4 bg-black text-white rounded-full font-medium transition-colors inline-flex items-center justify-center space-x-2 group ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent'
+                }`}
               >
-                <span>Send message</span>
-                <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                {isSubmitting ? (
+                  <span>Submitting...</span> // Show loading state
+                ) : (
+                  <>
+                    <span>Send message</span>
+                    <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </button>
             </form>
           )}
