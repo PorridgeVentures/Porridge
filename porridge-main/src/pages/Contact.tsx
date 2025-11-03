@@ -56,13 +56,13 @@ export default function Contact() {
             <h3 className="font-semibold mb-2">Location</h3>
             <p className="text-gray-600">Mumbai, India</p>
           </div>
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-4">
               <Send size={24} className="text-accent" />
             </div>
             <h3 className="font-semibold mb-2">Number</h3>
             <p className="text-gray-600">XXXXXXXX</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-12 shadow-sm">
