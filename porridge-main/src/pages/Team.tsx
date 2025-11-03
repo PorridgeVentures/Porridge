@@ -7,12 +7,14 @@ export default function Team() {
       role: 'Co-Founder',
       bio: 'CMO Whisperer, Big 4 Consulting Leader, Marketing ROI expert, Transformation Evangelist, with 30+ years of experience',
       image: '/GEE-01 2.png',
+      linkedin: "https://www.linkedin.com/in/geetanjali-bhattacharji-8588928"
     },
     {
       name: 'Anil Nair',
       role: 'Co-Founder ',
       bio: 'Over 25 years of experience in brand strategy, digital marketing, organizational development, technology, and innovation.',
       image: '/ANIL.png',
+      linkedin: "https://www.linkedin.com/in/thegoodlife1/"
     },];
 
   return (
@@ -50,19 +52,19 @@ export default function Team() {
                 <p className="text-gray-600 leading-relaxed mb-6">{member.bio}</p>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
+                    href={member.linkedin}
                     className="text-gray-400 hover:text-accent transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin size={20} />
                   </a>
-                  <a
+                  {/* <a
                     href="#"
                     className="text-gray-400 hover:text-accent transition-colors"
                     aria-label="Twitter"
                   >
                     <Twitter size={20} />
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
