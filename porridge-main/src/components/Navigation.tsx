@@ -35,8 +35,8 @@ export default function Navigation({ currentPage, onNavigate }: NavigationProps)
         isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center py-2">
+      <div className="max-w-7xl mx-auto px-6 lg:px-6">
+        <div className="flex justify-between items-center py-6">
           
           {/* LOGO - Cleaned up class name for consistent sizing */}
           <button
