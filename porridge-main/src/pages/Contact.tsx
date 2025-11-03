@@ -41,7 +41,7 @@ export default function Contact() {
       </section>
 
       <section className="max-w-full mx-auto px-6 lg:px-8 flex-col justify-between">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-4">
               <Mail size={24} className="text-accent" />
